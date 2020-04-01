@@ -5,27 +5,57 @@ class HighestPalindrome {
     // TODO: Complete the following function
     fun highestValuePalindrome(n: Int, k: Int, digitString: String): String {
 
-        var outputDigitString: String = ""
+        var outputDigitString: StringBuilder = java.lang.StringBuilder()
+        var maxItem: Char = digitString.max()!!
+        var i = 0
+        var iHalf: Int = 0
 
-        /*for (index in 0..n / 2 - 1) {
-            if (digitString[index] != digitString[n - 1 - index]) {
-                outputDigitString =
-                    digitString.replace(digitString[n - 1 - index], digitString[index], true)
-            }
+        for (index in 0 until n) {
+
+            if (iHalf <= k) {
+                var left = digitString[index]
+                var right = digitString[n - 1 - index]
+                when {
+                    left > right -> {
+                        outputDigitString.append(left)
+                        i++
+                        iHalf = i / 2
+                    }
+                    left < right -> {
+                        outputDigitString.append(right)
+                        i++
+                        iHalf = i / 2
+                    }
+                    left == right -> outputDigitString.append(left)
+                }
+            } else return "-1"
         }
 
-        println("total:  ${isPalendrom(digitString)}")
+        if (iHalf < k) {
+            for (index in 0 .. outputDigitString.length){
+                if (iHalf < k){
+                    outputDigitString[index] = maxItem
+                    outputDigitString[n - 1 - index] = maxItem
+
+                    iHalf ++
+                }
+            }
+
+        }
+
+
+
+        println("total:  ${isPalendrom(digitString)}  i == $i ")
 
         digitString.forEach { it -> print(it) }
         println()
-        outputDigitString.forEach { it -> print(it) }*/
-        when (digitString) {
-            "2842" -> outputDigitString = "2882"
-            "092282" -> outputDigitString = "992299"
-            "58346739679" -> outputDigitString = "-1"
-        }
+        outputDigitString.forEach { it -> print(it) }
+        println()
 
-        return outputDigitString
+        println(maxItem)
+        println("total:  ${isPalendrom(outputDigitString.toString())}")
+
+        return outputDigitString.toString()
     }
 
     fun isPalendrom(digitString: String): Boolean {
@@ -33,17 +63,15 @@ class HighestPalindrome {
         for (i in 0..digitString.length / 2 - 1) {
             if (digitString[i] == digitString[digitString.length - 1 - i]) {
                 isTrue = true
-                println("true")
             } else {
                 isTrue = false
-                println("false")
                 break
             }
         }
         return isTrue
-
-
     }
+
+
 }
 
 
